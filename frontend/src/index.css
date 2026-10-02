@@ -1,0 +1,151 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --surface: 248 250 252;
+    --surface-elevated: 255 255 255;
+    --surface-muted: 241 245 249;
+    --border: 226 232 240;
+    --border-subtle: 241 245 249;
+    --ink: 15 23 42;
+    --ink-muted: 71 85 105;
+    --ink-subtle: 148 163 184;
+  }
+
+  .dark {
+    --surface: 9 9 11;
+    --surface-elevated: 24 24 27;
+    --surface-muted: 39 39 42;
+    --border: 39 39 42;
+    --border-subtle: 63 63 70;
+    --ink: 250 250 250;
+    --ink-muted: 161 161 170;
+    --ink-subtle: 113 113 122;
+  }
+
+  html {
+    @apply antialiased;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  }
+
+  html, body {
+    overflow-x: hidden;
+    max-width: 100vw;
+  }
+
+  body {
+    @apply bg-surface text-ink font-sans;
+  }
+
+  /* Comfortable touch targets on mobile */
+  @media (max-width: 640px) {
+    .btn {
+      min-height: 2.75rem;
+    }
+    .btn-sm {
+      min-height: 2.25rem;
+    }
+    .input {
+      min-height: 2.75rem;
+      font-size: 16px; /* prevent iOS zoom on focus */
+    }
+  }
+
+  ::selection {
+    @apply bg-brand-500/20 text-brand-900 dark:text-brand-100;
+  }
+
+  /* Focus rings */
+  *:focus-visible {
+    @apply outline-none ring-2 ring-brand-500/40 ring-offset-2 ring-offset-surface;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-medium
+           transition-all duration-150 disabled:opacity-50 disabled:cursor-not-allowed
+           focus-visible:ring-2 focus-visible:ring-brand-500/40 focus-visible:ring-offset-2;
+  }
+
+  .btn-primary {
+    @apply btn bg-brand-600 text-white shadow-soft
+           hover:bg-brand-500 active:bg-brand-700
+           dark:bg-brand-500 dark:hover:bg-brand-400;
+  }
+
+  .btn-secondary {
+    @apply btn bg-surface-elevated text-ink border border-border shadow-soft
+           hover:bg-surface-muted hover:border-border-subtle;
+  }
+
+  .btn-ghost {
+    @apply btn text-ink-muted hover:bg-surface-muted hover:text-ink;
+  }
+
+  .btn-danger {
+    @apply btn bg-red-600 text-white hover:bg-red-500 active:bg-red-700;
+  }
+
+  .btn-sm {
+    @apply px-3 py-1.5 text-xs rounded-lg;
+  }
+
+  .input {
+    @apply w-full rounded-xl border border-border bg-surface-elevated px-3.5 py-2.5 text-sm text-ink
+           placeholder:text-ink-subtle
+           focus:border-brand-500 focus:ring-2 focus:ring-brand-500/15
+           transition-colors duration-150
+           dark:bg-surface-muted;
+  }
+
+  .label {
+    @apply block text-sm font-medium text-ink-muted mb-1.5;
+  }
+
+  .card {
+    @apply bg-surface-elevated border border-border rounded-2xl shadow-card;
+  }
+
+  .card-interactive {
+    @apply card transition-all duration-200 hover:shadow-card-hover hover:border-brand-200 dark:hover:border-brand-800;
+  }
+
+  .badge {
+    @apply inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-2xs font-semibold tracking-wide uppercase;
+  }
+
+  .page-title {
+    @apply text-xl sm:text-2xl font-semibold tracking-tight text-ink;
+  }
+
+  .page-subtitle {
+    @apply text-sm text-ink-muted mt-1;
+  }
+
+  .section-title {
+    @apply text-base font-semibold text-ink;
+  }
+
+  /* Skeleton */
+  .skeleton {
+    @apply animate-pulse rounded-lg bg-surface-muted;
+  }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-border rounded-full;
+}
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-ink-subtle;
+}
